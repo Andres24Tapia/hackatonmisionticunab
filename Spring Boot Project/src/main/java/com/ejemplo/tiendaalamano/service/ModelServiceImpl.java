@@ -28,12 +28,6 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public void createModel(Model model) {
-        Optional<Model> existingModel = modelRepository.findById(model.getId());
-
-        if (!existingModel.isPresent()) {
-            throw new BadResourceRequestException("Model with same id exists.");
-        }
-
         modelRepository.save(model);
     }
 

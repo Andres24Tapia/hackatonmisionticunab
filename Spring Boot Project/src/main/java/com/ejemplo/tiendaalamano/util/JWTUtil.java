@@ -6,13 +6,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class JWTUtil {
-    
+
     public String getJWTToken(String keyword) {
 		String secretKey = "mySecretKey";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
@@ -27,7 +28,7 @@ public class JWTUtil {
 								.map(GrantedAuthority::getAuthority)
 								.collect(Collectors.toList()))
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 600000))
+				.setExpiration(new Date(System.currentTimeMillis() + 127000000))
 				.signWith(SignatureAlgorithm.HS512,
 						secretKey.getBytes()).compact();
 
