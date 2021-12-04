@@ -2,8 +2,9 @@ package com.ejemplo.tiendaalamano.controller;
 
 import java.util.List;
 
-import com.ejemplo.tiendaalamano.model.CategoriaModel;
-import com.ejemplo.tiendaalamano.service.CategoriaService;
+
+import com.ejemplo.tiendaalamano.model.MarcaModel;
+import com.ejemplo.tiendaalamano.service.MarcaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,18 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class CategoriaControler {
+public class MarcaControler {
     @Autowired
-    CategoriaService categoriaService;
+    MarcaService marcaService;
 
-    @GetMapping("/categorias")
-    public List<CategoriaModel> obtCategorias(){
-        return categoriaService.obtenerTodo();
+    @GetMapping("/marcas")
+    public List<MarcaModel> obtMarcaModel(){
+        return marcaService.obtenerTodo();
     }
 
-    @PostMapping(value = "/categoria", consumes = "application/json")
+    @PostMapping(value = "/marca", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void crearCategoria(@RequestBody @Validated CategoriaModel newCategoria) {
-        categoriaService.crearCategoria(newCategoria);
+    public void crearMarca(@RequestBody @Validated MarcaModel nuevaMarca) {
+        marcaService.crearMarca(nuevaMarca);
     }
 }
