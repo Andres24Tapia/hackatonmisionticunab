@@ -12,31 +12,31 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "categoria", indexes = {
-    @Index(columnList = "id_categoria", unique = true)
+    @Index(columnList = "idCategoria ", unique = true)
 })
 public class CategoriaModel {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_categoria;
+    private int idCategoria;
     
     @Column(name = "nombre")
     private String nombre;
 
-    public CategoriaModel() {
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     public CategoriaModel(int idCategoria, String nombre) {
-        this.id_categoria = idCategoria;
+        this.idCategoria = idCategoria;
         this.nombre = nombre;
     }
 
-    public int getId_categoria() {
-        return id_categoria;
-    }
-
-    public void setId_categoria(int id_categoria) {
-        this.id_categoria = id_categoria;
+    public CategoriaModel() {
     }
 
     public String getNombre() {
@@ -46,4 +46,6 @@ public class CategoriaModel {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+   
 }
