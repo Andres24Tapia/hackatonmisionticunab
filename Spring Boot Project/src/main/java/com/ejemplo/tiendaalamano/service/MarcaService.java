@@ -22,4 +22,8 @@ public class MarcaService{
     public List<MarcaModel> obtenerTodo(){
         return marcaRepository.findAll();
     }
+
+    public void eliminarMarcaById(int id) {
+        marcaRepository.deleteById(id);
+    }
 }

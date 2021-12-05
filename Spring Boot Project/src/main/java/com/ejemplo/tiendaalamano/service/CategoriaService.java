@@ -20,6 +20,9 @@ public class CategoriaService {
         categoriaRepository.save(categoria);
     }
 
+    public void eliminarCategoriaById(int id) {
+        categoriaRepository.deleteById(id);
+    }
 
     public List<CategoriaModel> obtenerTodo(){
         return categoriaRepository.findAll();
