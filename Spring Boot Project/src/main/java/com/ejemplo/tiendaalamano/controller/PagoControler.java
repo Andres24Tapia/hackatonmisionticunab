@@ -7,10 +7,19 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.ejemplo.tiendaalamano.respuestas.RespuetaString;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,17 +30,25 @@ public class PagoControler {
 
     private String url = "https://api.mercadopago.com/v1/payments?access_token=TEST-363519645343512-120414-c773893b9674cf6e1c40cee821336d93-608525630";
 
-    @PostMapping(consumes = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public String nuevoPago(@RequestBody String nuevoPago) {
-        return crearPago(nuevoPago);
+    
+    @RequestMapping(value = "/saludar", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map getString() {
+        return Collections.singletonMap("response", "Hello World");
     }
 
-    private String crearPago(String dataPago) {
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public String nuevoPago(@RequestBody String nuevoPago, @RequestHeader("X-neli-session-id") String deviceId) {
+        String respuesta = crearPago(nuevoPago, deviceId);
+    
+        return respuesta;
+    }
+
+    private String crearPago(String dataPago, String deviceId) {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
-                .header("X-neli-session-id", "armor.39ebcd22ee5deb726931008fd5be74791beb4742fc07a3eed680c46a5ea1bf9efe9c5fd0297915f18afaa8bb7497f78b114f2bbc1cd449f94c0f5f50971b16e05d1ae0d21f063694b0ec3209e9a23a02.29fed7c03675874db4eb88731697484c")
+                .header("X-neli-session-id", deviceId)
                 .POST(BodyPublishers.ofString(dataPago))
                 .build();
 
